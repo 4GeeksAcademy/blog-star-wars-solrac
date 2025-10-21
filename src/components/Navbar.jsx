@@ -3,17 +3,22 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 
 	return (
-		<nav className="navbar navbar-light bg-light">
-			<div className="container">
+		<nav className="navbar bg-dark">
+			<div className="container-fluid">
 				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
+					<button className="btn btn-light">HOME</button>
 				</Link>
 				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
+					<Link to="/starwars">
+						<button className="btn btn-primary">Ir a vista general</button>
+					</Link>
+					<Link to="/vista-detallada">
+						<button className="btn btn-success mx-2">Ir a vista detallada</button>
 					</Link>
 				</div>
 			</div>
 		</nav>
 	);
 };
+
+//navbar provisional para moverme rapidamente por mis vistas.
