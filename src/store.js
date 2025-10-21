@@ -13,7 +13,6 @@ export const initialStore=()=>{
         background: null,
       }
     ],
-    F
     favoritos: []
   }
 }
