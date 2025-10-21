@@ -12,7 +12,9 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    F
+    favoritos: []
   }
 }
 
@@ -26,7 +28,16 @@ export default function storeReducer(store, action = {}) {
         ...store,
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
+
+    case 'AddFav':
+      return {
+        ...store,
+        favoritos: action.payload
+      }  
     default:
       throw Error('Unknown action.');
   }    
 }
+
+
+//agredo al store una nueva lista de favoritos.
