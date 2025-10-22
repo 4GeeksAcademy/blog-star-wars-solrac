@@ -1,3 +1,8 @@
+
+// https://www.swapi.tech/api/ => url base para la peticion a la API ó
+// https://swapi.tech/api/
+
+//----------------------------------------------------------------------------------
 export const getPersonas = async () => {
     try{
         const response = await fetch("")

@@ -20,7 +20,7 @@ export const Starwars = () => {
                                 </div>
                                 <div className="card-body-links d-flex justify-content-between">
                                     <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
-                                    <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i class="fa-solid fa-heart"></i></button>
+                                    <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i className="fa-solid fa-heart"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@ export const Starwars = () => {
                                 </div>
                                 <div className="card-body-links d-flex justify-content-between">
                                     <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
-                                    <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i class="fa-solid fa-heart"></i></button>
+                                    <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i className="fa-solid fa-heart"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@ export const Starwars = () => {
                                 </div>
                                 <div className="card-body-links d-flex justify-content-between">
                                     <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
-                                    <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i class="fa-solid fa-heart"></i></button>
+                                    <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i className="fa-solid fa-heart"></i></button>
                                 </div>
                             </div>
                         </div>
