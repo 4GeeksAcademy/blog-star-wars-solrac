@@ -3,27 +3,77 @@
 // https://swapi.tech/api/
 
 //----------------------------------------------------------------------------------
-export const getPersonas = async () => {
-    try{
-        const response = await fetch("")
-    } 
-    
-    catch{
+export const getPersonajes = async () => {
+    const response = await fetch("https://www.swapi.tech/api/people")
 
+    if (!response.ok) {
+        console.log("No es posible conectar con la API");
+        return [];
     }
+
+    const data = await response.json();
+    console.log(data);
+
+    return data.results;
+
+};
+
+//Funcion funciona correctamente.
+
+export const getPersonajeDetalle = async (uid) => {
+    const response = await fetch(`https://www.swapi.tech/api/people/${uid}`);
+    const data = await response.json();
+    return data.result.properties;
 };
 
 
 //----------------------------------------------------------------------------------
 export const getVehiculos = async () => {
-    const response = await fetch ("")
+    const response = await fetch("https://www.swapi.tech/api/vehicles")
+
+    if (!response.ok) {
+        console.log("No es posible conectar con la API");
+        return [];
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    return data.results;
+
 }
 
+//Funcion funciona correctamente.
+
+export const getVehiculoDetalle = async (uid) => {
+    const response = await fetch(`https://www.swapi.tech/api/vehicles/${uid}`);
+    const data = await response.json();
+    return data.results.properties;
+};
 
 //----------------------------------------------------------------------------------
 export const getPlanets = async () => {
-    const response = await fetch("")
+    const response = await fetch("https://www.swapi.tech/api/planets")
+
+    if (!response.ok) {
+        console.log("No es posible conectar con la API");
+        return [];
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    return data.results;
+
 }
 
+//Funcion funciona correctamente.
+
+export const getPlanetDetalle = async (uid) => {
+    const response = await fetch(`https://www.swapi.tech/api/planets/${uid}`);
+    const data = await response.json();
+    return data.result.properties;
+};
 
 //----------------------------------------------------------------------------------
+
