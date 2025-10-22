@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 export const Navbar = () => {
 
 	return (
-		<nav className="navbar bg-dark">
-			<div className="container-fluid">
+		<nav className="navbar nav-light ">
+			<div className="container">
 				<Link to="/">
-					<button className="btn btn-light">HOME</button>
+					<i class="fa-solid fa-jedi"> STARWARS</i>		
 				</Link>
 				<div className="ml-auto">
 					<Link to="/starwars">
@@ -14,6 +14,9 @@ export const Navbar = () => {
 					</Link>
 					<Link to="/vista-detallada">
 						<button className="btn btn-success mx-2">Ir a vista detallada</button>
+					</Link>
+					<Link to="favorites">
+						<button className="btn btn-warning">Favoritos</button>
 					</Link>
 				</div>
 			</div>
