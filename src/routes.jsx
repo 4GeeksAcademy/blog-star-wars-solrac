@@ -11,7 +11,6 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import { Starwars } from "./pages/Starwars";
 import { VistaDetallada } from "./pages/VistaDetallada";
-import { Favorites } from "./pages/Favorites";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +29,6 @@ export const router = createBrowserRouter(
       <Route path="/demo" element={<Demo />} />
       <Route path="/starwars" element={<Starwars />} />
       <Route path="/vista-detallada" element={<VistaDetallada />} />
-      <Route path="/favorites" element={<Favorites />} />
     </Route>
   )
 );

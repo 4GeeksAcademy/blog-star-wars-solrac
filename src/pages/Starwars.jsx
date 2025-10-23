@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPersonajeDetalle, getPersonajes, getPlanets, getVehiculos } from "../service/serviceAPI";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Starwars = () => {
 
@@ -9,21 +10,15 @@ export const Starwars = () => {
     const [personajes, setPersonajes] = useState([]);
     const [vehiculos, setVehiculos] = useState([]);
     const [planetas, setPlanetas] = useState([]);
-    const [favorites, setFavorites] = useState([]);
+    const [showFavorite, setShowFavorite] = useState(false)
+    const { store, dispatch } = useGlobalReducer()
+    const favorites = store.favorites
 
-    const addFavorites = (id) => {
-        setFavorites((prev) => {
-            const isAlreadyFavorite = prev.some((fav) => fav.id === item.id);
-            if (isAlreadyFavorite) {
-                // Si ya está en favoritos, lo quitamos
-                return prev.filter((fav) => fav.id !== item.id);
-            } else {
-                // Si no está, lo agregamos
-                return [...prev, item];
-            }
-        });
-
-    }
+const addFavorites = (item) => {
+  dispatch({ 
+    type: "toggle_fav", 
+    payload: item });
+};
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,44 +39,43 @@ export const Starwars = () => {
             );
             setPersonajes(detalles);
 
-            // Vehículos
-            const vehiculosApi = await getVehiculos();
-            const vehiculosDetalles = await Promise.all(
-                vehiculosApi.map(async (v) => {
-                    const res = await fetch(v.url);
-                    const data = await res.json();
-                    return {
-                        id: v.uid,
-                        name: data.result.properties.name,
-                        model: data.result.properties.model,
-                        vehicle_class: data.result.properties.vehicle_class,
-                        crew: data.result.properties.crew,
-                    };
-                })
-            );
-            setVehiculos(vehiculosDetalles);
+            // // Vehículos
+            // const vehiculosApi = await getVehiculos();
+            // const vehiculosDetalles = await Promise.all(
+            //     vehiculosApi.map(async (v) => {
+            //         const res = await fetch(v.url);
+            //         const data = await res.json();
+            //         return {
+            //             id: v.uid,
+            //             name: data.result.properties.name,
+            //             model: data.result.properties.model,
+            //             vehicle_class: data.result.properties.vehicle_class,
+            //             crew: data.result.properties.crew,
+            //         };
+            //     })
+            // );
+            // setVehiculos(vehiculosDetalles);
 
-            //Planetas
-            const planetasApi = await getPlanets();
-            const planetasDetalles = await Promise.all(
-                planetasApi.map(async (pl) => {
-                    const res = await fetch(pl.url);
-                    const data = await res.json();
-                    return {
-                        id: pl.uid,
-                        name: data.result.properties.name,
-                        gravity: data.result.properties.gravity,
-                        population: data.result.properties.population,
-                        climate: data.result.properties.climate,
-                    };
-                })
-            );
-            setPlanetas(planetasDetalles);
+            // //Planetas
+        //     const planetasApi = await getPlanets();
+        //     const planetasDetalles = await Promise.all(
+        //         planetasApi.map(async (pl) => {
+        //             const res = await fetch(pl.url);
+        //             const data = await res.json();
+        //             return {
+        //                 id: pl.uid,
+        //                 name: data.result.properties.name,
+        //                 gravity: data.result.properties.gravity,
+        //                 population: data.result.properties.population,
+        //                 climate: data.result.properties.climate,
+        //             };
+        //         })
+        //     );
+        //     setPlanetas(planetasDetalles);
         };
 
         fetchData();
     }, []);
-
 
 
     return (
@@ -89,6 +83,25 @@ export const Starwars = () => {
             <div className="estructura-pagina py-5 px-2">
                 <div className="container">
                     <div className="body row">
+                        <div className="text-end mb-4">
+                            <button className="btn btn-warning mb-2" onClick={() => setShowFavorite(!showFavorite)}>
+                                {showFavorite ? "ocultar Favoritos" : `Favoritos (${favorites.length})`}
+                            </button>
+                            {showFavorite && (
+                                <div className="favorites-list bg-dark text-light p-3 rounded mb-4">
+                                    <h4>Tus Favoritos:</h4>
+                                    {favorites.length > 0 ? (
+                                        <ul>
+                                            {favorites.map((fav) => (
+                                                <li key={fav.id}>{fav.name}</li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p>No tienes favoritos aún.</p>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                         <h1 className="text-bg-dark p-3 rounded-top-5 ">PERSONAJES</h1>
                         <div className="body-content col-md-12 row">
                             {personajes && personajes.length > 0 ? (
@@ -103,7 +116,7 @@ export const Starwars = () => {
                                         </div>
                                         <div className="card-body-links d-flex justify-content-between">
                                             <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
-                                            <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(personaje.id)}><i className="fa-solid fa-heart"></i></button>
+                                            <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(personaje)}><i className="fa-solid fa-heart"></i></button>
                                         </div>
                                     </div>
                                 )
@@ -129,7 +142,7 @@ export const Starwars = () => {
                                         </div>
                                         <div className="card-body-links d-flex justify-content-between">
                                             <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
-                                            <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i className="fa-solid fa-heart"></i></button>
+                                            <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(vehiculo)}><i className="fa-solid fa-heart"></i></button>
                                         </div>
                                     </div>
                                 )
@@ -155,7 +168,7 @@ export const Starwars = () => {
                                         </div>
                                         <div className="card-body-links d-flex justify-content-between">
                                             <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
-                                            <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => { }}><i className="fa-solid fa-heart"></i></button>
+                                            <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(planeta)}><i className="fa-solid fa-heart"></i></button>
                                         </div>
                                     </div>
                                 )

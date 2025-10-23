@@ -15,9 +15,7 @@ export const Navbar = () => {
 					<Link to="/vista-detallada">
 						<button className="btn btn-success mx-2">Ir a vista detallada</button>
 					</Link>
-					<Link to="favorites">
-						<button className="btn btn-warning">Favoritos</button>
-					</Link>
+
 				</div>
 			</div>
 		</nav>

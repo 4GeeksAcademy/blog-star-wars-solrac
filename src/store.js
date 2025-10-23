@@ -13,7 +13,7 @@ export const initialStore=()=>{
         background: null,
       }
     ],
-    favoritos: []
+    favorites: []
   }
 }
 
@@ -28,11 +28,18 @@ export default function storeReducer(store, action = {}) {
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
 
-    case 'AddFav':
+    case 'toggle_fav': {
+      const item = action.payload;
+      const exists = store.favorites.some((fav) => fav.id === item.id);
+
       return {
         ...store,
-        favoritos: action.payload
-      }  
+        favorites: exists
+          ? store.favorites.filter((fav) => fav.id !== item.id)
+          : [...store.favorites, item],
+      };
+    }
+ 
     default:
       throw Error('Unknown action.');
   }    
