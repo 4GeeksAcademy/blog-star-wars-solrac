@@ -1,7 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getPersonajeDetalle, getPersonajes, getPlanetDetalle, getVehiculoDetalle } from "../service/serviceAPI";
+import { useEffect } from "react";
 
 export const VistaDetallada = () => {
     const navigate = useNavigate()
+    const {id_personaje, id_vehiculo, id_planeta} = useParams()
+
+    useEffect(()=>{
+        getPersonajeDetalle(id_personaje)
+        getPlanetDetalle(id_planeta)
+        getVehiculoDetalle(id_vehiculo)
+    },[])
+
     return (
         <>
             <div className="container my-5">
@@ -16,7 +26,7 @@ export const VistaDetallada = () => {
                         <p>aqui va la descripcion del personaje o la tarjeta que queremos ver en detalle.</p>
                     </div>
                 </div>
-                
+
                 <div className="row my-3">
                     <h4 className="col-md-2 border border-danger py-3">Name:
                         <p className="my-4 text-primary">luke Skywalker</p>
