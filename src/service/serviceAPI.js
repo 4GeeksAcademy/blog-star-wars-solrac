@@ -77,3 +77,10 @@ export const getPlanetDetalle = async (uid) => {
 
 //----------------------------------------------------------------------------------
 
+// export const getPlanetDescripcion = async () => {
+//     const response = await fetch("https://www.swapi.tech/api/planets/?format=api");
+//     const data = await response.json()
+//     return data;
+// }
+
+// esta peticion a la API la estoy probando haber si consigo la descripcion de la carta

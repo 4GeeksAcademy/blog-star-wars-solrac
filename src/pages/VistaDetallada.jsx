@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react"; 
-import { getPersonajeDetalle, getPlanetDetalle, getVehiculoDetalle } from "../service/serviceAPI";
+import { useEffect, useState } from "react";
+import { getPersonajeDetalle, getPlanetDescripcion, getPlanetDetalle, getVehiculoDetalle } from "../service/serviceAPI";
 
 export const VistaDetallada = () => {
     const navigate = useNavigate()
@@ -9,6 +9,9 @@ export const VistaDetallada = () => {
     // Creamos estados para guardar los detalles y manejar la carga
     const [detalle, setDetalle] = useState(null); // ¡Perfecto!
     const [loading, setLoading] = useState(true); // ¡Perfecto!
+
+    const description = getPlanetDescripcion()
+    console.log(description);
 
     // Usamos useEffect para buscar los datos cuando 'tipo' o 'id' cambien
     useEffect(() => {
@@ -134,11 +137,11 @@ export const VistaDetallada = () => {
                 <div className="row my-3">
                     {/* 👇 AQUÍ ESTÁ LA LÓGICA CONDICIONAL 👇 */}
                     {/* Mostramos las estadísticas correctas según el 'tipo' */}
-                    
+
                     {tipo === "personajes" && renderPersonajeStats(detalle)}
                     {tipo === "vehiculos" && renderVehiculoStats(detalle)}
                     {tipo === "planetas" && renderPlanetaStats(detalle)}
-                    
+
                 </div>
             </div>
         </>
