@@ -1,16 +1,119 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getPersonajeDetalle, getPersonajes, getPlanetDetalle, getVehiculoDetalle } from "../service/serviceAPI";
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; 
+import { getPersonajeDetalle, getPlanetDetalle, getVehiculoDetalle } from "../service/serviceAPI";
 
 export const VistaDetallada = () => {
     const navigate = useNavigate()
-    const {id_personaje, id_vehiculo, id_planeta} = useParams()
+    const { tipo, id } = useParams()
 
-    useEffect(()=>{
-        getPersonajeDetalle(id_personaje)
-        getPlanetDetalle(id_planeta)
-        getVehiculoDetalle(id_vehiculo)
-    },[])
+    // Creamos estados para guardar los detalles y manejar la carga
+    const [detalle, setDetalle] = useState(null); // ¡Perfecto!
+    const [loading, setLoading] = useState(true); // ¡Perfecto!
+
+    // Usamos useEffect para buscar los datos cuando 'tipo' o 'id' cambien
+    useEffect(() => {
+        const fetchDetalle = async () => {
+            setLoading(true); // Empezamos la carga
+            try {
+                let data;
+                // Decidimos qué API llamar basado en el 'tipo'
+                switch (tipo) {
+                    case "personajes":
+                        data = await getPersonajeDetalle(id);
+                        break;
+                    case "vehiculos":
+                        data = await getVehiculoDetalle(id);
+                        break;
+                    case "planetas":
+                        data = await getPlanetDetalle(id);
+                        break;
+                    default:
+                        console.error("Tipo desconocido:", tipo);
+                        setDetalle(null);
+                        return;
+                }
+                setDetalle(data);
+            } catch (error) {
+                console.error("Error al cargar detalles:", error);
+                setDetalle(null);
+            } finally {
+                setLoading(false); // Terminamos la carga
+            }
+        };
+
+        fetchDetalle();
+    }, [tipo, id]); // ¡Perfecto!
+
+    // Manejamos el estado de carga
+    if (loading) {
+        return <div className="container my-5 text-center"><h1>Cargando...</h1></div>;
+    }
+
+    // Manejamos si no se encontraron detalles
+    if (!detalle) {
+        return <div className="container my-5 text-center"><h1>Detalle no encontrado.</h1></div>;
+    }
+
+    // --- Renderizado Condicional ---
+    // Funciones "helper" para renderizar la sección de estadísticas
+    // según el 'tipo'.
+
+    const renderPersonajeStats = (data) => (
+        <>
+            <h4 className="col-md-2 border border-danger py-3">Name:
+                <p className="my-4 text-primary">{data.name}</p>
+            </h4>
+            <h4 className="col-md-2 border border-danger py-3">Birth year:
+                <p className="my-4 text-primary">{data.birth_year}</p>
+            </h4>
+            <h4 className="col-md-2 border border-danger py-3">Gender:
+                <p className="my-4 text-primary">{data.gender}</p>
+            </h4>
+            <h4 className="col-md-2 border border-danger py-3">Height:
+                <p className="my-4 text-primary">{data.height}</p>
+            </h4>
+            <h4 className="col-md-2 border border-danger py-3">Skin color:
+                <p className="my-4 text-primary">{data.skin_color}</p>
+            </h4>
+            <h4 className="col-md-2 border border-danger py-3">Eye color:
+                <p className="my-4 text-primary">{data.eye_color}</p>
+            </h4>
+        </>
+    );
+
+    const renderVehiculoStats = (data) => (
+        <>
+            <h4 className="col-md-3 border border-danger py-3">Name:
+                <p className="my-4 text-primary">{data.name}</p>
+            </h4>
+            <h4 className="col-md-3 border border-danger py-3">Model:
+                <p className="my-4 text-primary">{data.model}</p>
+            </h4>
+            <h4 className="col-md-3 border border-danger py-3">Class:
+                <p className="my-4 text-primary">{data.vehicle_class}</p>
+            </h4>
+            <h4 className="col-md-3 border border-danger py-3">Crew:
+                <p className="my-4 text-primary">{data.crew}</p>
+            </h4>
+        </>
+    );
+
+    const renderPlanetaStats = (data) => (
+        <>
+            <h4 className="col-md-3 border border-danger py-3">Name:
+                <p className="my-4 text-primary">{data.name}</p>
+            </h4>
+            <h4 className="col-md-3 border border-danger py-3">Gravity:
+                <p className="my-4 text-primary">{data.gravity}</p>
+            </h4>
+            <h4 className="col-md-3 border border-danger py-3">Population:
+                <p className="my-4 text-primary">{data.population}</p>
+            </h4>
+            <h4 className="col-md-3 border border-danger py-3">Climate:
+                <p className="my-4 text-primary">{data.climate}</p>
+            </h4>
+        </>
+    );
 
     return (
         <>
@@ -22,39 +125,22 @@ export const VistaDetallada = () => {
                         </div>
                     </div>
                     <div className="description col-lg-6 bg-secondary bg-opacity-25 mb-3">
-                        <h1 className="mt-2 text-center">AQUI VA EL NOMBRE DE LA TARJETA</h1>
-                        <p>aqui va la descripcion del personaje o la tarjeta que queremos ver en detalle.</p>
+                        {/* 👇 AQUI ESTÁ EL CAMBIO 👇 */}
+                        <h1 className="mt-2 text-center">{detalle.name}</h1>
+                        <p>Aquí puedes ver los detalles de '{detalle.description}'. Esta API no provee una descripción larga, así que puedes rellenar este espacio con más información si lo deseas.</p>
                     </div>
                 </div>
 
                 <div className="row my-3">
-                    <h4 className="col-md-2 border border-danger py-3">Name:
-                        <p className="my-4 text-primary">luke Skywalker</p>
-                    </h4>
-                    <h4 className="col-md-2 border border-danger py-3">Birth year:
-                        <p className="my-4 text-primary">1955</p>
-
-                    </h4>
-                    <h4 className="col-md-2 border border-danger py-3">Gender:
-                        <p className="my-4 text-primary">male</p>
-
-                    </h4>
-                    <h4 className="col-md-2 border border-danger py-3">Height:
-                        <p className="my-4 text-primary">172</p>
-
-                    </h4>
-                    <h4 className="col-md-2 border border-danger py-3">Skin color:
-                        <p className="my-4 text-primary">fair</p>
-
-                    </h4>
-                    <h4 className="col-md-2 border border-danger py-3">Eye color:
-                        <p className="my-4 text-primary">yellow</p>
-
-                    </h4>
+                    {/* 👇 AQUÍ ESTÁ LA LÓGICA CONDICIONAL 👇 */}
+                    {/* Mostramos las estadísticas correctas según el 'tipo' */}
+                    
+                    {tipo === "personajes" && renderPersonajeStats(detalle)}
+                    {tipo === "vehiculos" && renderVehiculoStats(detalle)}
+                    {tipo === "planetas" && renderPlanetaStats(detalle)}
+                    
                 </div>
             </div>
         </>
     );
 };
-
-//Vista detallada ya hecha a falta de la lógica.

@@ -48,7 +48,7 @@ export const getVehiculos = async () => {
 export const getVehiculoDetalle = async (uid) => {
     const response = await fetch(`https://www.swapi.tech/api/vehicles/${uid}`);
     const data = await response.json();
-    return data.results.properties;
+    return data.result.properties;
 };
 
 //----------------------------------------------------------------------------------

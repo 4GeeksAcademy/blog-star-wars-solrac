@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getPersonajeDetalle, getPersonajes, getPlanets, getVehiculos } from "../service/serviceAPI";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
@@ -14,11 +14,12 @@ export const Starwars = () => {
     const { store, dispatch } = useGlobalReducer()
     const favorites = store.favorites
 
-const addFavorites = (item) => {
-  dispatch({ 
-    type: "toggle_fav", 
-    payload: item });
-};
+    const addFavorites = (item) => {
+        dispatch({
+            type: "toggle_fav",
+            payload: item
+        });
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,39 +40,39 @@ const addFavorites = (item) => {
             );
             setPersonajes(detalles);
 
-            // // Vehículos
-            // const vehiculosApi = await getVehiculos();
-            // const vehiculosDetalles = await Promise.all(
-            //     vehiculosApi.map(async (v) => {
-            //         const res = await fetch(v.url);
-            //         const data = await res.json();
-            //         return {
-            //             id: v.uid,
-            //             name: data.result.properties.name,
-            //             model: data.result.properties.model,
-            //             vehicle_class: data.result.properties.vehicle_class,
-            //             crew: data.result.properties.crew,
-            //         };
-            //     })
-            // );
-            // setVehiculos(vehiculosDetalles);
+            // Vehículos
+            const vehiculosApi = await getVehiculos();
+            const vehiculosDetalles = await Promise.all(
+                vehiculosApi.map(async (v) => {
+                    const res = await fetch(v.url);
+                    const data = await res.json();
+                    return {
+                        id: v.uid,
+                        name: data.result.properties.name,
+                        model: data.result.properties.model,
+                        vehicle_class: data.result.properties.vehicle_class,
+                        crew: data.result.properties.crew,
+                    };
+                })
+            );
+            setVehiculos(vehiculosDetalles);
 
-            // //Planetas
-        //     const planetasApi = await getPlanets();
-        //     const planetasDetalles = await Promise.all(
-        //         planetasApi.map(async (pl) => {
-        //             const res = await fetch(pl.url);
-        //             const data = await res.json();
-        //             return {
-        //                 id: pl.uid,
-        //                 name: data.result.properties.name,
-        //                 gravity: data.result.properties.gravity,
-        //                 population: data.result.properties.population,
-        //                 climate: data.result.properties.climate,
-        //             };
-        //         })
-        //     );
-        //     setPlanetas(planetasDetalles);
+            //Planetas
+                const planetasApi = await getPlanets();
+                const planetasDetalles = await Promise.all(
+                    planetasApi.map(async (pl) => {
+                        const res = await fetch(pl.url);
+                        const data = await res.json();
+                        return {
+                            id: pl.uid,
+                            name: data.result.properties.name,
+                            gravity: data.result.properties.gravity,
+                            population: data.result.properties.population,
+                            climate: data.result.properties.climate,
+                        };
+                    })
+                );
+                setPlanetas(planetasDetalles);
         };
 
         fetchData();
@@ -115,7 +116,9 @@ const addFavorites = (item) => {
                                             <p>Eye-color: {personaje.eye_color}</p>
                                         </div>
                                         <div className="card-body-links d-flex justify-content-between">
-                                            <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
+                                            <Link to={`/vista-detallada/personajes/${personaje.id}`}>
+                                                <button className="btn btn-outline-primary border-dark mx-1 my-3">Leer mas</button>
+                                            </Link>
                                             <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(personaje)}><i className="fa-solid fa-heart"></i></button>
                                         </div>
                                     </div>
@@ -141,7 +144,9 @@ const addFavorites = (item) => {
                                             <p>Crew: {vehiculo.crew}</p>
                                         </div>
                                         <div className="card-body-links d-flex justify-content-between">
-                                            <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
+                                            <Link to={`/vista-detallada/vehiculos/${vehiculo.id}`}>
+                                                <button className="btn btn-outline-primary border-dark mx-1 my-3">Leer mas</button>
+                                            </Link>
                                             <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(vehiculo)}><i className="fa-solid fa-heart"></i></button>
                                         </div>
                                     </div>
@@ -167,7 +172,9 @@ const addFavorites = (item) => {
                                             <p>Climate: {planeta.climate}</p>
                                         </div>
                                         <div className="card-body-links d-flex justify-content-between">
-                                            <button className="btn btn-outline-primary border-dark mx-1 my-3" onClick={() => navigate("/vista-detallada")}>Leer mas</button>
+                                            <Link to={`/vista-detallada/planetas/${planeta.id}`}>
+                                                <button className="btn btn-outline-primary border-dark mx-1 my-3">Leer mas</button>
+                                            </Link>
                                             <button className="btn btn-outline-danger border-dark mx-1 my-3" onClick={() => addFavorites(planeta)}><i className="fa-solid fa-heart"></i></button>
                                         </div>
                                     </div>
