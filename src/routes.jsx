@@ -33,4 +33,4 @@ export const router = createBrowserRouter(
   )
 );
 
-//enrutamientos ya estan hechos y funcionan perfectamente y en URL muestran en la pagina que estan 
+// HAY QUE EMPEZAR DE NUEVO EL PROYECTO NUEVA API LA DE NARUTO

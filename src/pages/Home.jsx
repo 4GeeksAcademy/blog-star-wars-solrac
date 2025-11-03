@@ -4,15 +4,12 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Home = () => {
 
-  const {store, dispatch} =useGlobalReducer()
-  const navigate =useNavigate()
 
 	return (
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
 		</div>
 	);
 }; 
+
+
+// HAY QUE EMPEZAR DE NUEVO EL PROYECTO NUEVA API LA DE NARUTO

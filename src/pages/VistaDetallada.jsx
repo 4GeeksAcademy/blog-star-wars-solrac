@@ -147,3 +147,5 @@ export const VistaDetallada = () => {
         </>
     );
 };
+
+// HAY QUE EMPEZAR DE NUEVO EL PROYECTO NUEVA API LA DE NARUTO

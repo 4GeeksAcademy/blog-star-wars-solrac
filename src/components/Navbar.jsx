@@ -6,20 +6,11 @@ export const Navbar = () => {
 		<nav className="navbar nav-light ">
 			<div className="container">
 				<Link to="/">
-					<i className="fa-solid fa-jedi"> STARWARS</i>		
+					<i className="fa-solid fa-jedi"> Naruto.</i>		
 				</Link>
-				<div className="ml-auto">
-					<Link to="/starwars">
-						<button className="btn btn-primary">Ir a vista general</button>
-					</Link>
-					<Link to="/vista-detallada">
-						<button className="btn btn-success mx-2">Ir a vista detallada</button>
-					</Link>
-
-				</div>
 			</div>
 		</nav>
 	);
 };
 
-//navbar provisional para moverme rapidamente por mis vistas.
+// HAY QUE EMPEZAR DE NUEVO EL PROYECTO NUEVA API LA DE NARUTO
