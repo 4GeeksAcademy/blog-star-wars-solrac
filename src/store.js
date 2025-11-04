@@ -4,6 +4,7 @@ export const initialStore = () => {
     personajes: [],
     akatsuki: [],
     kara:[],
+    items:[],
     favorites: []
   }
 }

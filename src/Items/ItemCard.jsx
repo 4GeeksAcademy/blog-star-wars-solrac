@@ -61,7 +61,7 @@ export const ItemCard = () => {
                             <div className="card-body">
                                 <h5 className="card-title">{personaje.name}</h5>
                             </div>
-                            <Link to={"#"}>
+                            <Link to={`/vista-detallada/personajes/${index}`}>
                                 <button className="btn btn-outline-success my-2 border"> Ver mas</button>
                             </Link>
                         </div>

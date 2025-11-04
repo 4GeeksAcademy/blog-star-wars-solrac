@@ -6,10 +6,11 @@ import { ItemCard } from "../Items/ItemCard.jsx";
 
 export const Home = () => {
 
+	const imageBg = "https://static.wikia.nocookie.net/naruto/images/2/26/Portada_Personajes_HD.png/revision/latest/scale-to-width-down/1000?cb=20170823021715&path-prefix=es"
 
 
 	return (
-		<div className="text-center my-5 mx-5 ">
+		<div className="container-fluid bg-success text-center" >
 			<div className="row">
 				<ItemCard />
 			</div>
