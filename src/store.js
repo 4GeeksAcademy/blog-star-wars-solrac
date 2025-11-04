@@ -1,19 +1,35 @@
-export const initialStore=()=>{
-  return{
+export const initialStore = () => {
+  return {
     baseUrl: "https://dattebayo-api.onrender.com",
-    characters:[],
+    personajes: [],
+    akatsuki: [],
+    kara:[],
     favorites: []
   }
 }
 
 export default function storeReducer(store, action = {}) {
-  switch(action.type){
-    case 'set_characters':
+  switch (action.type) {
+    case 'set_personajes':
 
       return {
         ...store,
-        characters: action.payload
+        personajes: action.payload
       };
+
+    case 'set_akatsuki':
+
+      return {
+        ...store,
+        akatsuki: action.payload
+      }
+
+    case 'set_kara':
+
+      return {
+        ...store,
+        kara: action.payload
+      }
 
     case 'toggle_fav': {
       const item = action.payload;
@@ -26,10 +42,10 @@ export default function storeReducer(store, action = {}) {
           : [...store.favorites, item],
       };
     }
- 
+
     default:
       throw Error('Unknown action.');
-  }    
+  }
 }
 
 
